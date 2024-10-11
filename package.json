@@ -1,0 +1,72 @@
+{
+  "name": "saga-transaction-lib",
+  "version": "1.0.0",
+  "description": "A TypeScript library for implementing the Saga pattern to manage distributed transactions and complex workflows",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "test": "jest",
+    "lint": "eslint 'src/**/*.{js,ts}'",
+    "format": "prettier --write 'src/**/*.{js,ts}'",
+    "prepublishOnly": "npm run build",
+    "prepare": "husky install"
+  },
+  "keywords": [
+    "saga",
+    "transaction",
+    "distributed",
+    "workflow",
+    "typescript",
+    "nestjs"
+  ],
+  "author": "Giang Do Ngoc <dongocgiang.edu@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dngiang2003/saga-transaction-lib.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dngiang2003/saga-transaction-lib/issues"
+  },
+  "homepage": "https://github.com/dngiang2003/saga-transaction-lib#readme",
+  "devDependencies": {
+    "@types/jest": "^29.5.13",
+    "@types/mocha": "^10.0.9",
+    "@typescript-eslint/eslint-plugin": "^6.7.0",
+    "@typescript-eslint/parser": "^6.7.0",
+    "eslint": "^8.49.0",
+    "eslint-config-prettier": "^9.1.0",
+    "husky": "^8.0.3",
+    "jest": "^29.7.0",
+    "prettier": "^3.0.3",
+    "rollup": "^3.29.5",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.6.3"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^10.0.0",
+    "rxjs": "^7.8.1"
+  },
+  "peerDependenciesMeta": {
+    "@nestjs/common": {
+      "optional": true
+    },
+    "rxjs": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
