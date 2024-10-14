@@ -27,7 +27,7 @@ To use the decorators in this library, you need to enable experimental decorator
 {
   "compilerOptions": {
     "experimentalDecorators": true
-    // ... other options
+    ... other options
   }
 }
 ```
@@ -205,7 +205,7 @@ export class YourService {
 
 ## Example Usage
 
-A detailed example can be found in the [`main.ts`](https://github.com/dngiang2003/saga-transaction-lib/example/main.ts) file located in the `example` folder. This example demonstrates how to implement a transaction step using both the `@BeforeInvoke` and `@BeforeCompensate` decorators.
+A detailed example can be found in the [`main.ts`](https://github.com/dngiang2003/saga-transaction-lib/blob/master/example/main.ts) file located in the `example` folder. This example demonstrates how to implement a transaction step using both the `@BeforeInvoke` and `@BeforeCompensate` decorators.
 
 ## License
 
