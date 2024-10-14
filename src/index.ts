@@ -6,3 +6,4 @@ export * from './types/transaction-context.type';
 export * from './utils/default-logger';
 export * from './utils/default-error-handler';
 export * from './saga';
+export * from './decorators';

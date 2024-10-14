@@ -5,6 +5,7 @@ export declare class Saga<TContext> {
     private readonly logger;
     private readonly errorHandler;
     private readonly shouldStopOnError;
+    isBreakStep: boolean;
     constructor(options?: SagaOptions<TContext>);
     execute(context: TContext, steps: IStep<TContext>[]): Promise<TransactionContext<TContext>>;
     private handleStepError;

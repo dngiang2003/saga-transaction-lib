@@ -9,11 +9,27 @@ A TypeScript library for implementing the Saga pattern to manage distributed tra
 - Built-in error handling and compensation
 - Customizable logging
 - Transaction context management
+- Decorators for fine-grained control over step execution and compensation
 
 ## Installation
 
 ```bash
 npm install saga-transaction-lib
+```
+
+## Configuration
+
+### TypeScript Configuration
+
+To use the decorators in this library, you need to enable experimental decorators in your `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "experimentalDecorators": true
+    // ... other options
+  }
+}
 ```
 
 ## Basic Usage
@@ -56,19 +72,38 @@ async function runMyTransaction() {
 }
 ```
 
-## Configuration
+## Advanced Usage
 
-You can customize the Saga behavior by providing options:
+### Using Decorators
+
+The library provides two decorators for fine-grained control over step execution and compensation:
+
+#### @BeforeInvoke & @BeforeCompensate()
+
+- The @BeforeInvoke decorator checks if the step can proceed by returning true. If it does, the invoke method is executed.
+- The @BeforeCompensate decorator does not require any condition checks and will directly execute the compensation logic when necessary.
 
 ```typescript
-const saga = new Saga<MyContext>({
-  logger: new CustomLogger(),
-  errorHandler: new CustomErrorHandler(),
-  shouldStopOnError: true,
-});
-```
+import { BeforeInvoke, IStep } from 'saga-transaction-lib';
 
-## Advanced Usage
+class MyStep implements IStep<MyContext> {
+  name = 'My Step';
+
+  @BeforeInvoke<MyStep, MyContext>(async ({ instance, context }) => {
+    console.log(`Preparing to execute ${instance.name}`);
+    // Perform checks or preparations
+    return true; // Return true to proceed, false to skip this step
+  })
+  async invoke(context: MyContext): Promise<void> {
+    // Step implementation
+  }
+
+  @BeforeCompensate()
+  async compensate(context: MyContext): Promise<void> {
+    // Compensation logic
+  }
+}
+```
 
 ### Custom Logger
 
@@ -165,6 +200,12 @@ export class YourService {
 3. Use meaningful step names
 4. Handle errors appropriately
 5. Use typing to ensure compile-time safety
+6. Use decorators to add pre-execution and pre-compensation logic when needed
+7. Ensure `isBreakStep` is properly managed in your step implementations
+
+## Example Usage
+
+A detailed example can be found in the [`main.ts`](https://github.com/dngiang2003/saga-transaction-lib/example/main.ts) file located in the `example` folder. This example demonstrates how to implement a transaction step using both the `@BeforeInvoke` and `@BeforeCompensate` decorators.
 
 ## License
 

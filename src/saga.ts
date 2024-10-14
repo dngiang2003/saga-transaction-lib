@@ -10,17 +10,26 @@ export class Saga<TContext> {
   private readonly logger: ILogger;
   private readonly errorHandler: IErrorHandler<TContext>;
   private readonly shouldStopOnError: boolean;
+  isBreakStep: boolean = false;
 
   constructor(options: SagaOptions<TContext> = {}) {
     this.logger = options.logger || new DefaultLogger();
-    this.errorHandler = options.errorHandler || new DefaultErrorHandler<TContext>(this.logger);
+    this.errorHandler =
+      options.errorHandler || new DefaultErrorHandler<TContext>(this.logger);
     this.shouldStopOnError = options.shouldStopOnError ?? true;
   }
 
-  async execute(context: TContext, steps: IStep<TContext>[]): Promise<TransactionContext<TContext>> {
+  async execute(
+    context: TContext,
+    steps: IStep<TContext>[]
+  ): Promise<TransactionContext<TContext>> {
     const transactionContext = new TransactionContext(context);
-    
+
     for (const step of steps) {
+      if (this.isBreakStep) {
+        break;
+      }
+
       try {
         this.logger.debug(`Executing step: ${step.name}`);
         await step.invoke(context);
@@ -37,7 +46,10 @@ export class Saga<TContext> {
     return transactionContext;
   }
 
-  private async handleStepError(error: Error, context: TransactionContext<TContext>): Promise<void> {
+  private async handleStepError(
+    error: Error,
+    context: TransactionContext<TContext>
+  ): Promise<void> {
     await this.errorHandler.handleError(error, context);
   }
 }

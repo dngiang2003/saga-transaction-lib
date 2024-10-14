@@ -1,6 +1,6 @@
 {
   "name": "saga-transaction-lib",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A TypeScript library for implementing the Saga pattern to manage distributed transactions and complex workflows",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -38,6 +38,7 @@
   "homepage": "https://github.com/dngiang2003/saga-transaction-lib#readme",
   "devDependencies": {
     "@types/jest": "^29.5.13",
+    "@types/lodash": "^4.17.10",
     "@types/mocha": "^10.0.9",
     "@typescript-eslint/eslint-plugin": "^6.7.0",
     "@typescript-eslint/parser": "^6.7.0",
@@ -68,5 +69,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
   }
 }
